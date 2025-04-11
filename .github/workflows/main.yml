@@ -1,4 +1,4 @@
-name: Battle of the Ancient Spirits CI/CD/CD
+name: Spellstorm Crusader CI / CD / CD
 
 on:
   pull_request: {}
@@ -10,81 +10,22 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   
 jobs:
-
-  ###################################
-  #         Test Application        #
-  ###################################
-  testBotAS:
-    name: Test BotAS ✨
-    runs-on: self-hosted
+  buildWebGl:
+    name: Build for WebGL
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         projectPath:
           - BotAS
         unityVersion:
           - 6000.0.25f1
     steps:
-    
-      ###########################
-      #         Checkout        #
-      ###########################
       - name: Checkout the Repository
         id: checkout
         uses: actions/checkout@v4
         with:
-          lfs: true
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      ###########################
-      #          Cache          #
-      ###########################
-      # - name: Set Cache Directory Ownership
-        # run: sudo chown -R $USER:$USER
-      # - name: Print Current Working Directory
-        # run: echo "Current working directory is $(pwd)"
-        
-      # - name: List Contents of ${{ matrix.projectPath }}
-        # run: |
-            # echo "Listing contents of ${{ matrix.projectPath }}:"
-            # ls -la ${{ matrix.projectPath }}
-      
-      - name: Restore LFS cache
-        uses: actions/cache@v4
-        id: lfs-cache
-        with:
-          path: git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-      
-      - name: Print Current Working Directory
-        run: echo "Current working directory is $(pwd)"
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Restore Library cache
-        uses: actions/cache@v4
-        with:
-          path: ${{matrix.projectPath}}/Library
-          key: Library-${{matrix.projectPath}}-
-          restore-keys: |
-            Library-${{matrix.projectPath}}-
-            Library-
-            
-      ###########################
-      #          Build          #
-      ###########################     
-      - name: Check Memory and Disk Space Before Unity Test
-        run: |
-          echo "Memory Usage:"
-          free -h
-          echo "Disk Usage:"
-          df -h
+          lfs: true     
       
       - uses: game-ci/unity-test-runner@v4
         id: myTestStep
@@ -93,146 +34,26 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          projectPath: ${{matrix.projectPath}}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Check Memory and Disk Space After Unity Test
-        run: |
-          echo "Memory Usage:"
-          free -h
-          echo "Disk Usage:"
-          df -h
-        
-      - name: Check Memory and Disk Space on Failure
-        if: failure()
-        run: |
-          echo "Memory Usage:"
-          free -h
-          echo "Disk Usage:"
-          df -h
-
-      ######################################
-      #          Upload Test Result        #
-      ######################################
+          targetPlatform: WebGL
       - uses: actions/upload-artifact@v4
-        if: failure()
         with:
-          name: Test-Results
-          path: ${{ steps.myTestStep.outputs.artifactsPath }}
-          if-no-files-found: error
-          retention-days: 5
-          
-      # ########################################
-      # #          Upload Code Coverage        #
-      # ########################################
-      # # - name: Save Coverage Report
-        # # uses: actions/upload-artifact@v4
-        # # with:
-          # # name: Coverage-Results
-          # # path: ${{ steps.myTestStep.outputs.coveragePath }}
-          # # if-no-files-found: error
-          # # retention-days: 90
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  # ####################################
-  # #         Build Application        #
-  # ####################################
-  # buildBotAS:
-    # needs: testBotAS
-    # name: Build for ${{ matrix.targetPlatform }}
-    # runs-on: self-hosted
-    # strategy:
-      # fail-fast: true
-      # matrix:
-        # projectPath:
-          # - BotAS
-        # targetPlatform:
-          # - StandaloneWindows64
-          
-    # steps: 
-      # ###########################
-      # #         Checkout        #
-      # ###########################
-      # - name: Checkout code
-        # uses: actions/checkout@v4
-        # with:
-          # lfs: true
-
-      # - name: Create LFS file list
-        # run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      # ###########################
-      # #          Cache          #
-      # ###########################
-      # - name: Restore LFS cache
-        # uses: actions/cache@v4
-        # id: lfs-cache
-        # with:
-          # path: .git/lfs
-          # key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-      # - name: Git LFS Pull
-        # run: |
-          # git lfs pull
-          # git add .
-          # git reset --hard
-
-      # - name: Restore Library cache
-        # uses: actions/cache@v4
-        # with:
-          # path: ${{matrix.projectPath}}/Library
-          # key: Library-${{matrix.projectPath}}-
-          # restore-keys: |
-            # Library-${{matrix.projectPath}}-
-            # Library-
-            
-      # ###########################
-      # #          Build          #
-      # ###########################
-      # - uses: game-ci/unity-builder@v4
-        # env:
-          # UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          # UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        # with:
-          # unityVersion: ${{ matrix.unityVersion }}
-          # projectPath: ${{ matrix.projectPath }}
-          # targetPlatform: ${{ matrix.targetPlatform }}
-          
-          
-      # ###########################
-      # #          Upload         #
-      # ###########################
-      # - uses: actions/upload-artifact@v4
-        # with:
-          # name: Build-${{matrix.targetPlatform}}
-          # path: build/${{matrix.targetPlatform}}
-          # if-no-files-found: error
-          # retention-days: 1
-      
-    
-      # ############################
-      # #          Cleanup         #
-      # ############################ 
-      # - name: Cleanup to avoid storage limit
-        # if: always()
-        # uses: geekyeggo/delete-artifact@v5
-        # with:
-          # name: buildBotAS
+          name: Build-WebGL
+          path: build/WebGL
+         
+         
+  deployPages:
+    needs: buildWebGl
+    name: Deploy to Github Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: Build-WebGL
+          path: build/WebGL
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: main
+          folder: build/WebGL
