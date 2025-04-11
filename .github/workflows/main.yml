@@ -33,6 +33,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: ${{matrix.projectPath}}
           targetPlatform: WebGL
       - name: upload the build artifact
         uses: actions/upload-artifact@v4
