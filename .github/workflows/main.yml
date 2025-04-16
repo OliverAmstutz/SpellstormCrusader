@@ -26,21 +26,6 @@ jobs:
         with:
           lfs: true    
           
-      - name: create LFS file list
-        run: git lfs ls-files -l | cut '-d' ' -f1 | sort > .lfs-asset-id
-          
-      - name: cache LFS files
-        uses: actions/cache@v4
-        with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-      - name: git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-          
       - name: cache Library files
         uses: actions/cache@v4
         with:
