@@ -24,13 +24,30 @@ jobs:
       - name: Checkout the Repository
         uses: actions/checkout@v4
         with:
-          lfs: true     
+          lfs: true    
+          
+      - name: create LFS file list
+        run: git lfs ls-files -l | cut '-d' ' -f1 | sort > .lfs-asset-id
+          
+      - name: cache LFS files
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+          
       - name: cache Library files
         uses: actions/cache@v4
         with:
-          path: Library
-          key: Library-${{ matrix.targetPlatform }}
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.targetPlatform }}-${{ matrix.projectPath }}
           restore-keys: Library-
+          
       - name: Build the Game
         uses: game-ci/unity-builder@v4
         env:
@@ -40,6 +57,7 @@ jobs:
         with:
           projectPath: ${{matrix.projectPath}}
           targetPlatform: WebGL
+          
       - name: upload the build artifact
         uses: actions/upload-artifact@v4
         with:
