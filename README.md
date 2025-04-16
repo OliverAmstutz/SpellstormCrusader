@@ -1,5 +1,5 @@
 # SpellstormCrusader
-
+[Play the game here](https://oliveramstutz.github.io/SpellstormCrusader/)
 
 ## Licensing
 
