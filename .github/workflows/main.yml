@@ -25,7 +25,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true     
-      
+      - name: cache Library files
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
       - name: Build the Game
         uses: game-ci/unity-builder@v4
         env:
