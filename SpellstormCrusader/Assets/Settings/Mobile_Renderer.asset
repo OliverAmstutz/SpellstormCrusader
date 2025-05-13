@@ -71,6 +71,6 @@ MonoBehaviour:
     concaveShadow: 1
     depthSensitivity: 0.002
     debugEffect: 0
-    test1: {x: 0, y: 0, z: 0, w: 0}
-    shader: {fileID: 4800000, guid: e2cc6a911d33ce84e8a7277d4d14ab4d, type: 3}
+    injectionPoint: 450
+  shader: {fileID: 4800000, guid: e2cc6a911d33ce84e8a7277d4d14ab4d, type: 3}
   material: {fileID: 0}
