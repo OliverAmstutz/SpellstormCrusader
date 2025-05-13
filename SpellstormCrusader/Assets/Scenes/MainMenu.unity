@@ -409,6 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4eddb4211d3487491f459cad81840b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuMusic: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
   playButton: {fileID: 2090480696}
   quitButton: {fileID: 1655161668}
 --- !u!114 &1397647285

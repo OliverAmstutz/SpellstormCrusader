@@ -7,6 +7,7 @@ namespace Ui
 {
     public class MainMenuManager : MonoBehaviour
     {
+        [SerializeField] private AudioClip menuMusic;
         [SerializeField] private Button playButton;
         [SerializeField] private Button quitButton;
         private MySceneManager _mySceneManager;
@@ -24,6 +25,8 @@ namespace Ui
             {
                 Debug.LogError("MySceneManager not found in the scene.");
             }
+
+            MusicManager.Instance?.PlayMusic(menuMusic);
         }
 
         private void OnPlayClicked() => _mySceneManager.UnloadAndLoad(SceneList.MainMenu, SceneList.GameScene);
