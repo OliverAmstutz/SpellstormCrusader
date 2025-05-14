@@ -59,7 +59,6 @@ namespace Bootstrap
             if (targetScene.IsValid() && targetScene.isLoaded)
             {
                 SceneManager.SetActiveScene(targetScene);
-                Debug.Log($"Scene '{sceneNameToActivate}' set as active.");
             }
             else
             {
