@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f221eba31c7b49b09a8772e2926675d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToActivate: 2
+  sceneToActivate: 1
 --- !u!4 &1719643904
 Transform:
   m_ObjectHideFlags: 0
@@ -1335,6 +1335,7 @@ MonoBehaviour:
   cameraInfos:
   - cam: {fileID: 1370370199}
   rendererFeatures:
+  - {fileID: 6918232002696748879, guid: 65bc7dbf4170f435aa868c779acfb082, type: 2}
   - {fileID: 3181148146525198342, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!4 &1893206026984366012
 Transform:

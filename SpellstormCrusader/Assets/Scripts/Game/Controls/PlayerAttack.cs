@@ -6,6 +6,8 @@ namespace Game.Controls
     public class PlayerAttack : MonoBehaviour
     {
         [SerializeField] private float attackCooldown = 1f;
+        [SerializeField] private GameObject attackPrefab;
+        [SerializeField] private Transform attackSpawnPoint;
 
         private PlayerControls _inputActions;
         private bool _isAttackHeld;
@@ -50,7 +52,15 @@ namespace Game.Controls
         private void PerformAttack()
         {
             _lastAttackTime = Time.time;
-            Debug.Log("Attack!");
+
+            if (attackPrefab && attackSpawnPoint)
+            {
+                Instantiate(attackPrefab, attackSpawnPoint.position, attackSpawnPoint.rotation);
+            }
+            else
+            {
+                Debug.LogWarning("Attack prefab or spawn point not set.");
+            }
         }
     }
 }
