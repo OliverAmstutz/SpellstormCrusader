@@ -131,8 +131,8 @@ RenderTexture:
     Hash: 00000000000000000000000000000000
   m_IsAlphaChannelOptional: 0
   serializedVersion: 6
-  m_Width: 304
-  m_Height: 243
+  m_Width: 400
+  m_Height: 232
   m_AntiAliasing: 1
   m_MipCount: -1
   m_DepthStencilFormat: 90
@@ -410,8 +410,8 @@ Transform:
   m_GameObject: {fileID: 994350444}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.025535746, z: 0}
-  m_LocalScale: {x: 2.6713533, y: 2.135325, z: 0}
+  m_LocalPosition: {x: -0, y: 0.02690711, z: 0}
+  m_LocalScale: {x: 3.7037036, y: 2.148148, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1350233969}
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1194722268}
-  fadeDuration: 2
+  fadeDuration: 1
 --- !u!4 &1194722270
 Transform:
   m_ObjectHideFlags: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
   - {fileID: 1370370196}
   storedCamRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   storedPixelMultiplier: 5
-  origOrthoSize: 5.2685184
+  origOrthoSize: 5
 --- !u!4 &1350233969
 Transform:
   m_ObjectHideFlags: 0
@@ -671,7 +671,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 99}
-  m_LocalScale: {x: 5.2685184, y: 5.2685184, z: 5.2685184}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 994350445}
@@ -827,14 +827,14 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: -0.004115226
+    y: 0
     width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 5.2685184
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1041,7 +1041,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 5.2685184
+  orthographic size: 5
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -1181,9 +1181,9 @@ MonoBehaviour:
   graphicsFormat: 8
   pixelMultiplier: 5
   ditherRepeatSize: 8
-  lastScreenSize: {x: 1444, y: 1138}
-  screenSize: {x: 1444, y: 1138}
-  renderTextureSize: {x: 304, y: 243}
+  lastScreenSize: {x: 1920, y: 1080}
+  screenSize: {x: 1920, y: 1080}
+  renderTextureSize: {x: 400, y: 232}
   screenHeight: 1080
   uPixelatorCam: {fileID: 1027650907899555326}
   autoDetectCameras: 0

@@ -6,7 +6,7 @@ namespace Bootstrap
     public class MusicManager : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private float fadeDuration = 2f;
+        [SerializeField] private float fadeDuration = 1f;
         public static MusicManager Instance { get; private set; }
 
         private void Awake()
