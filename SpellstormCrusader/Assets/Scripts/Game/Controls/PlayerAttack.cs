@@ -8,6 +8,8 @@ namespace Game.Controls
         [SerializeField] private float attackCooldown = 1f;
         [SerializeField] private GameObject attackPrefab;
         [SerializeField] private Transform attackSpawnPoint;
+        [SerializeField] private AudioClip shootSfx;
+        [SerializeField] private AudioSource audioSource;
 
         private PlayerControls _inputActions;
         private bool _isAttackHeld;
@@ -56,6 +58,10 @@ namespace Game.Controls
             if (attackPrefab && attackSpawnPoint)
             {
                 Instantiate(attackPrefab, attackSpawnPoint.position, attackSpawnPoint.rotation);
+                if (audioSource && shootSfx)
+                {
+                    audioSource.PlayOneShot(shootSfx);
+                }
             }
             else
             {
