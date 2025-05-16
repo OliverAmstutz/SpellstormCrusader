@@ -7,9 +7,11 @@ namespace Game.Controls
     {
         [SerializeField] private float attackCooldown = 1f;
         [SerializeField] private GameObject attackPrefab;
-        [SerializeField] private Transform attackSpawnPoint;
+        [SerializeField] private Transform referenceRotation;
+        [SerializeField] private Transform wandPosition;
         [SerializeField] private AudioClip shootSfx;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private ParticleSystem muzzleFlash;
 
         private PlayerControls _inputActions;
         private bool _isAttackHeld;
@@ -55,12 +57,17 @@ namespace Game.Controls
         {
             _lastAttackTime = Time.time;
 
-            if (attackPrefab && attackSpawnPoint)
+            if (attackPrefab && referenceRotation && wandPosition)
             {
-                Instantiate(attackPrefab, attackSpawnPoint.position, attackSpawnPoint.rotation);
+                Instantiate(attackPrefab, wandPosition.position, referenceRotation.rotation);
                 if (audioSource && shootSfx)
                 {
                     audioSource.PlayOneShot(shootSfx);
+                }
+
+                if (muzzleFlash)
+                {
+                    muzzleFlash.Play();
                 }
             }
             else
